@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: electronics-deployment
+  labels:
+    app: electronics
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: electronics
+  template:
+    metadata:
+      labels:
+        app: electronics
+    spec:
+      containers:
+      - name: electronics
+        image: 730335281328.dkr.ecr.us-east-1.amazonaws.com/shopping-site-electronics:687d7f1d61adb4221bc75974452897b4b33d9882
+        ports:
+        - containerPort: 80

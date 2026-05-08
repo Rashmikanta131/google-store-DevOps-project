@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: googlegrocery-deployment
+  labels:
+    app: googlegrocery
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: googlegrocery
+  template:
+    metadata:
+      labels:
+        app: googlegrocery
+    spec:
+      containers:
+      - name: googlegrocery
+        image: 730335281328.dkr.ecr.us-east-1.amazonaws.com/shopping-site-googlegrocery:687d7f1d61adb4221bc75974452897b4b33d9882
+        ports:
+        - containerPort: 80
