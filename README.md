@@ -1,4 +1,4 @@
-# kubernetes-veeraops-ecommerce-microservices-app
+# kubernetes-ecommerce-microservices-app
 
 This README provides end-to-end steps for installing **eksctl**, **kubectl**, **Docker**, **Ingress-Nginx**, **MariaDB**, **ArgoCD**, and creating necessary namespaces and database tables
 
