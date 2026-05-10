@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/CloudTechDevOps/google-store-DevOps-project-veera.git
+    repoURL: https://github.com/Rashmikanta131/google-store-DevOps-project.git
     path: frontend/earphones
     targetRevision: main
   destination:
