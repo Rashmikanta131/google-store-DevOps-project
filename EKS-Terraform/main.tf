@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = "ap-south-1"
 }
 
 ############################
@@ -16,7 +16,7 @@ provider "aws" {
 ############################
 
 variable "cluster_version" {
-  default = "1.35"
+  default = "1.33"
 }
 
 ############################
@@ -47,7 +47,7 @@ resource "aws_subnet" "public1" {
 
   vpc_id                  = aws_vpc.eks_vpc.id
   cidr_block              = "10.0.1.0/24"
-  availability_zone       = "us-east-1a"
+  availability_zone       = "ap-south-1a"
   map_public_ip_on_launch = true
 }
 
@@ -55,7 +55,7 @@ resource "aws_subnet" "public2" {
 
   vpc_id                  = aws_vpc.eks_vpc.id
   cidr_block              = "10.0.2.0/24"
-  availability_zone       = "us-east-1b"
+  availability_zone       = "ap-south-1b"
   map_public_ip_on_launch = true
 }
 
@@ -63,14 +63,14 @@ resource "aws_subnet" "private1" {
 
   vpc_id            = aws_vpc.eks_vpc.id
   cidr_block        = "10.0.3.0/24"
-  availability_zone = "us-east-1a"
+  availability_zone = "ap-south-1a"
 }
 
 resource "aws_subnet" "private2" {
 
   vpc_id            = aws_vpc.eks_vpc.id
   cidr_block        = "10.0.4.0/24"
-  availability_zone = "us-east-1b"
+  availability_zone = "ap-south-1b"
 }
 
 ############################
@@ -272,7 +272,7 @@ resource "aws_eks_node_group" "node_group" {
   ]
   
     
-  instance_types = ["t2.medium"]
+  instance_types = ["t3.medium"]
 
   scaling_config {
 
@@ -290,14 +290,14 @@ resource "aws_eks_node_group" "node_group" {
     Name        = "eks-node"
     Environment = "dev"
     Project     = "eks-project"
-    Owner       = "veeraops"
+    Owner       = "rashmikanta"
   }
 }
 
 
 resource "aws_instance" "eks" {
-    ami           = "ami-02dfbd4ff395f2a1b"
-    instance_type = "t2.medium"
+    ami           = "ami-0f58b397bc5c1f2e8"
+    instance_type = "t3.medium"
     subnet_id     = aws_subnet.public1.id
     vpc_security_group_ids = [aws_security_group.allow_all.id]
     root_block_device {
@@ -315,9 +315,9 @@ resource "aws_instance" "eks" {
                 yum update -y
 
                 # ----------------------------- Install kubectl -----------------------------
-                curl -o /tmp/kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl
-                chmod +x /tmp/kubectl
-                mv /tmp/kubectl /usr/local/bin/kubectl
+                curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.33.0/2025-05-01/bin/linux/amd64/kubectl
+                chmod +x kubectl
+                mv kubectl /usr/local/bin/
 
                 # Verify kubectl
                 kubectl version --client || true
